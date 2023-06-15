@@ -5,6 +5,7 @@ import com.example.order_managment_system.domain.user.UserMapper;
 import com.example.order_managment_system.domain.user.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsersService {
@@ -15,10 +16,11 @@ public class UsersService {
     @Resource
     private UserMapper userMapper;
 
+    @Transactional
     public void createUser(UserCreateRequest userCreateRequest) {
         userService.validateUserBy(userCreateRequest.getEmail());
 
-        User user = userMapper.toRegisterUser(userCreateRequest);
+        User user = userMapper.toCreateUser(userCreateRequest);
 
         userService.createUser(user);
     }

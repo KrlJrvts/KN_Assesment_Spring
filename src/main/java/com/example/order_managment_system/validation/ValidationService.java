@@ -7,4 +7,12 @@ public class ValidationService {
             throw new RuntimeException("User with this email already exists");
         }
     }
+
+    public static void validateProductSkuCodeIsAvailable(boolean productExists) {
+        if (productExists) {
+            throw new RuntimeException("Product with this sku code already exists");
+        }
+    }
+
 }
+

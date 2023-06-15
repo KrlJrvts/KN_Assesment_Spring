@@ -6,16 +6,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/users")
 public class UsersController {
 
     @Resource
     private UsersService usersService;
 
 
-    @PostMapping("/users/create")
+    @PostMapping("/create")
     @Operation(summary = "Create a new user",
             description = " by registration_code, full_name, email and telephone and check if user already exists by email")
     @ApiResponses(value = {
