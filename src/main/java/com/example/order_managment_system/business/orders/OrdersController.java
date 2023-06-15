@@ -18,7 +18,7 @@ public class OrdersController {
     private OrdersService ordersService;
 
 
-    @PostMapping("/date")
+    @GetMapping("/by-date")
     @Operation(summary = "Get all orders", description = "Get all orders")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Orders found successfully!"),
