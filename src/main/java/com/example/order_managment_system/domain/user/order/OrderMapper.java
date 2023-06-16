@@ -16,8 +16,4 @@ public interface OrderMapper {
     OrderByDateResponse toOrderByDateResponse(Order order);
 
     List<OrderByDateResponse> toOrderByDateResponseList(List<Order> orders);
-
-    @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "submissionDate", target = "submissionDate")
-    Order toOrderBy(OrderCreateRequest orderCreateRequest);
 }

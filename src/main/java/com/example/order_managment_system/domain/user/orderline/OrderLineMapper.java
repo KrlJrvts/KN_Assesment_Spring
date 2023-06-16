@@ -1,5 +1,7 @@
 package com.example.order_managment_system.domain.user.orderline;
 
+import com.example.order_managment_system.business.orders.dtos.OrderByDateResponse;
+import com.example.order_managment_system.business.orders.dtos.OrderByProductResponse;
 import com.example.order_managment_system.business.orders.dtos.OrderLinesCreateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,4 +16,7 @@ public interface OrderLineMapper {
 
     OrderLine toOrderLine(OrderLinesCreateRequest orderLinesCreateRequest);
     List<OrderLine> toOrderLineList(List<OrderLinesCreateRequest> orderLinesCreateRequests);
+
+
+    List<OrderByProductResponse> toOrderByProductResponseList(List<OrderLine> orders);
 }

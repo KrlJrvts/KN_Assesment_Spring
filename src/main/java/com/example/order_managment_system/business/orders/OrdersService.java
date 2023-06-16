@@ -1,11 +1,11 @@
 package com.example.order_managment_system.business.orders;
 
 import com.example.order_managment_system.business.orders.dtos.OrderByDateResponse;
+import com.example.order_managment_system.business.orders.dtos.OrderByProductResponse;
 import com.example.order_managment_system.business.orders.dtos.OrderCreateRequest;
 import com.example.order_managment_system.business.orders.dtos.OrderLinesCreateRequest;
 import com.example.order_managment_system.domain.product.Product;
 import com.example.order_managment_system.domain.product.ProductService;
-import com.example.order_managment_system.domain.user.User;
 import com.example.order_managment_system.domain.user.UserService;
 import com.example.order_managment_system.domain.user.order.Order;
 import com.example.order_managment_system.domain.user.order.OrderMapper;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,9 +42,14 @@ public class OrdersService {
     private OrderLineMapper orderLineMapper;
 
 
-    public List<OrderByDateResponse> getOrdersBy(LocalDate date) {
+    public List<OrderByDateResponse> getOrdersByDate(LocalDate date) {
         List<Order> orders = orderService.getOrders(date);
         return orderMapper.toOrderByDateResponseList(orders);
+    }
+
+    public List<OrderByProductResponse> getOrdersByProduct(Integer productId) {
+        List<OrderLine> orders = orderLineService.getOrdersByProduct(productId);
+        return orderLineMapper.toOrderByProductResponseList(orders);
     }
 
 
@@ -85,6 +89,7 @@ public class OrdersService {
 
         return orderLines;
     }
+
 
 
 }

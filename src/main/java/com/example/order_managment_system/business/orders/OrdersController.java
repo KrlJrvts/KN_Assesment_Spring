@@ -1,6 +1,7 @@
 package com.example.order_managment_system.business.orders;
 
 import com.example.order_managment_system.business.orders.dtos.OrderByDateResponse;
+import com.example.order_managment_system.business.orders.dtos.OrderByProductResponse;
 import com.example.order_managment_system.business.orders.dtos.OrderCreateRequest;
 import com.example.order_managment_system.domain.user.UserService;
 import com.example.order_managment_system.domain.user.orderline.OrderLineService;
@@ -11,7 +12,6 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,18 +35,30 @@ public class OrdersController {
             @ApiResponse(responseCode = "403", description = "Orders not found!")})
     public List<OrderByDateResponse> getOrders(@RequestParam LocalDate date) {
 
-        return ordersService.getOrdersBy(date);
+        return ordersService.getOrdersByDate(date);
     }
 
+    @GetMapping("/by-product")
+    @Operation(summary = "Get all orders", description = "Get all orders by entering productId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Orders found successfully!"),
+            @ApiResponse(responseCode = "403", description = "Orders not found!")})
+    public List<OrderByProductResponse> getOrdersByProduct(@RequestParam Integer productId) {
+
+        return ordersService.getOrdersByProduct(productId);
+    }
 
     @PostMapping("/create")
     @Operation(summary = "Create a new order",
-            description = """by creating first order line with requested userId and submission dateand adding items  by itemId and quantity into the orderline database""")
+            description = "by creating first order line with requested userId and submission date and adding items  by itemId and quantity into the orderLine database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Order created successfully!"),
             @ApiResponse(responseCode = "403", description = "Order creation failed!")})
     public void createOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
         ordersService.createOrder(orderCreateRequest);
     }
+
+
+
 
 }
