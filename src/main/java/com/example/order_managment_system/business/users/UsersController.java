@@ -19,7 +19,7 @@ public class UsersController {
 
     @PostMapping("/create")
     @Operation(summary = "Create a new user",
-            description = " by registration_code, full_name, email and telephone and check if user already exists by email")
+            description = "by registration_code, full_name, email and telephone and check if user already exists by email")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User created successfully!"),
             @ApiResponse(responseCode = "403", description = "User creation failed!")})

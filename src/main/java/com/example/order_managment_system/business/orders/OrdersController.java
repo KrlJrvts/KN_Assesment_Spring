@@ -32,8 +32,7 @@ public class OrdersController {
     @Operation(summary = "Get all orders", description = "Get all orders by entering date in format yyyy-mm-dd")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Orders found successfully!"),
-            @ApiResponse(responseCode = "403", description = "Orders not found!")
-    })
+            @ApiResponse(responseCode = "403", description = "Orders not found!")})
     public List<OrderByDateResponse> getOrders(@RequestParam LocalDate date) {
 
         return ordersService.getOrdersBy(date);
@@ -42,7 +41,7 @@ public class OrdersController {
 
     @PostMapping("/create")
     @Operation(summary = "Create a new order",
-            description = " by greating first order line with requested userId and submition date and adding items to the orderline database")
+            description = """by creating first order line with requested userId and submission dateand adding items  by itemId and quantity into the orderline database""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Order created successfully!"),
             @ApiResponse(responseCode = "403", description = "Order creation failed!")})
