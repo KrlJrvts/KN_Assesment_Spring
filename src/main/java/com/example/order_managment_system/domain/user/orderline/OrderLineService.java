@@ -1,6 +1,5 @@
 package com.example.order_managment_system.domain.user.orderline;
 
-import com.example.order_managment_system.business.orders.dtos.OrderByUserResponse;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +26,12 @@ public class OrderLineService {
     public List<OrderLine> getOrderLinesByUser(Integer userId) {
         return  orderLineRepository.getOrderLinesByUser(userId);
 
+    }
+
+    public void updateOrderLine(Integer orderId, Integer quantity, Integer orderLineNo) {
+        List<OrderLine> orderLine = orderLineRepository.getOrderBy(orderId);
+        orderLine.get(orderLineNo).setQuantity(quantity);
+        orderLineRepository.save(orderLine.get(orderLineNo));
     }
 }
 

@@ -1,9 +1,6 @@
 package com.example.order_managment_system.business.orders;
 
-import com.example.order_managment_system.business.orders.dtos.OrderByDateResponse;
-import com.example.order_managment_system.business.orders.dtos.OrderByProductResponse;
-import com.example.order_managment_system.business.orders.dtos.OrderByUserResponse;
-import com.example.order_managment_system.business.orders.dtos.OrderCreateRequest;
+import com.example.order_managment_system.business.orders.dtos.*;
 import com.example.order_managment_system.domain.user.UserService;
 import com.example.order_managment_system.domain.user.orderline.OrderLineService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +52,7 @@ public class OrdersController {
             @ApiResponse(responseCode = "200", description = "Orders found successfully!"),
             @ApiResponse(responseCode = "403", description = "Orders not found!")})
     public List<OrderByUserResponse> getOrdersByUser(@RequestParam Integer userId) {
-            return ordersService.getOrdersByUser(userId);
+        return ordersService.getOrdersByUser(userId);
     }
 
     @PostMapping("/create")
@@ -68,7 +65,15 @@ public class OrdersController {
         ordersService.createOrder(orderCreateRequest);
     }
 
-
+    @PatchMapping("/update")
+    @Operation(summary = "Update an order item quantity",
+            description = "by updating quantity of items in orderLine database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Order updated successfully!"),
+            @ApiResponse(responseCode = "403", description = "Order update failed!")})
+    public void updateOrder(@RequestParam Integer orderId,  @RequestBody OrderLineQuantityEditRequest orderLineQuantityEditRequest) {
+        ordersService.updateOrder(orderId, orderLineQuantityEditRequest);
+    }
 
 
 }
