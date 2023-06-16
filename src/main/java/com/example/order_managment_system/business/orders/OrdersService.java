@@ -58,11 +58,11 @@ public class OrdersService {
             OrderByUserResponse orderByUserResponse = getOrderByUserResponse(order);
 
             List<OrderLine> orderLines = orderLineService.getOrderLinesByUser(userId);
-            List<OrderLinesByUserResponse> orderLinesResponses = new ArrayList<>();
+            List<OrderLineByUserResponse> orderLinesResponses = new ArrayList<>();
 
             for (OrderLine orderLine : orderLines) {
                 if (Objects.equals(orderLine.getOrders().getId(), order.getId())) {
-                    OrderLinesByUserResponse orderLineResponse = getOrderLinesByUserResponse(orderLine);
+                    OrderLineByUserResponse orderLineResponse = getOrderLinesByUserResponse(orderLine);
                     orderLinesResponses.add(orderLineResponse);
                 }
             }
@@ -90,8 +90,8 @@ public class OrdersService {
         return orderByUserResponse;
     }
 
-    private static OrderLinesByUserResponse getOrderLinesByUserResponse(OrderLine orderLine) {
-        OrderLinesByUserResponse orderLineResponse = new OrderLinesByUserResponse();
+    private static OrderLineByUserResponse getOrderLinesByUserResponse(OrderLine orderLine) {
+        OrderLineByUserResponse orderLineResponse = new OrderLineByUserResponse();
         orderLineResponse.setOrderId(orderLine.getOrders().getId());
         orderLineResponse.setProductName(orderLine.getProducts().getName());
         orderLineResponse.setQuantity(orderLine.getQuantity());
@@ -107,10 +107,10 @@ public class OrdersService {
         return order;
     }
 
-    private List<OrderLine> createOrderLines(List<OrderLinesCreateRequest> orderLinesCreateRequests, Integer orderId) {
+    private List<OrderLine> createOrderLines(List<OrderLineCreateRequest> orderLineCreateRequests, Integer orderId) {
         List<OrderLine> orderLines = new ArrayList<>();
 
-        for (OrderLinesCreateRequest orderLineCreateRequest : orderLinesCreateRequests) {
+        for (OrderLineCreateRequest orderLineCreateRequest : orderLineCreateRequests) {
             OrderLine orderLine = orderLineMapper.toOrderLine(orderLineCreateRequest);
 
             OrderLine newOrderLine = new OrderLine();

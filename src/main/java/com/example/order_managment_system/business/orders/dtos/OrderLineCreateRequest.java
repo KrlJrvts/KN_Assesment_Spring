@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderLinesCreateRequest {
+public class OrderLineCreateRequest {
     private int productId;
     private int quantity;
 }

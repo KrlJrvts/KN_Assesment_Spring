@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderLinesByUserResponse {
+public class OrderLineByUserResponse {
     private int orderId;
     private String productName;
     private int quantity;

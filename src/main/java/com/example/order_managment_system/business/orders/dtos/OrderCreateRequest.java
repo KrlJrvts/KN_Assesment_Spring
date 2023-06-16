@@ -14,5 +14,5 @@ import java.util.List;
 public class OrderCreateRequest {
     private Integer userId;
     private LocalDate submissionDate;
-    private List<OrderLinesCreateRequest> orderLines;
+    private List<OrderLineCreateRequest> orderLines;
 }

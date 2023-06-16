@@ -13,5 +13,5 @@ import java.util.List;
 public class OrderByUserResponse {
     private int id;
     private String fullName;
-    private List<OrderLinesByUserResponse> orderLines;
+    private List<OrderLineByUserResponse> orderLines;
 }
