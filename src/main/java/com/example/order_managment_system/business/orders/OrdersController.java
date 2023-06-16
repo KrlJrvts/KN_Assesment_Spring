@@ -2,6 +2,7 @@ package com.example.order_managment_system.business.orders;
 
 import com.example.order_managment_system.business.orders.dtos.OrderByDateResponse;
 import com.example.order_managment_system.business.orders.dtos.OrderByProductResponse;
+import com.example.order_managment_system.business.orders.dtos.OrderByUserResponse;
 import com.example.order_managment_system.business.orders.dtos.OrderCreateRequest;
 import com.example.order_managment_system.domain.user.UserService;
 import com.example.order_managment_system.domain.user.orderline.OrderLineService;
@@ -46,6 +47,15 @@ public class OrdersController {
     public List<OrderByProductResponse> getOrdersByProduct(@RequestParam Integer productId) {
 
         return ordersService.getOrdersByProduct(productId);
+    }
+
+    @GetMapping("/by-user")
+    @Operation(summary = "Get all orders", description = "Get all orders by entering userId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Orders found successfully!"),
+            @ApiResponse(responseCode = "403", description = "Orders not found!")})
+    public List<OrderByUserResponse> getOrdersByUser(@RequestParam Integer userId) {
+            return ordersService.getOrdersByUser(userId);
     }
 
     @PostMapping("/create")

@@ -28,5 +28,9 @@ public class OrderService {
     public Order getOrderById(Integer orderId) {
         return orderRepository.findById(orderId).get();
     }
+
+    public List<Order> getOrdersByUser(Integer userId) {
+        return orderRepository.getOrdersByUser(userId);
+    }
 }
 

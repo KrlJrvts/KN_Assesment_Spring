@@ -14,5 +14,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select o from Order o where o.submissionDate = ?1")
     List<Order> findAllBy(LocalDate submissionDate);
 
+    @Query("select o from Order o where o.user.id = ?1")
+    List<Order> getOrdersByUser(Integer id);
+
+
 
 }

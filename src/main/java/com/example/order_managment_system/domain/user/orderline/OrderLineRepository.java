@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -15,8 +14,8 @@ public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
     @Query("select o from OrderLine o where o.products.id = ?1")
     List<OrderLine>  getOrdersByProduct(Integer id);
 
-
-
+    @Query("select o from OrderLine o where o.orders.user.id = ?1")
+    List<OrderLine> getOrdersByUser(Integer id);
 
 
 
