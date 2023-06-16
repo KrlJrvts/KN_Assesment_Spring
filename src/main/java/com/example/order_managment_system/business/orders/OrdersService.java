@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrdersService {
@@ -51,8 +52,28 @@ public class OrdersService {
 
     public List<OrderByUserResponse> getOrdersByUser(Integer userId) {
         List<Order> orders = orderService.getOrdersByUser(userId);
-        return orderMapper.toOrderByUserResponseList(orders);
+        List<OrderByUserResponse> orderResponses = new ArrayList<>();
+
+        for (Order order : orders) {
+            OrderByUserResponse orderByUserResponse = getOrderByUserResponse(order);
+
+            List<OrderLine> orderLines = orderLineService.getOrderLinesByUser(userId);
+            List<OrderLinesByUserResponse> orderLinesResponses = new ArrayList<>();
+
+            for (OrderLine orderLine : orderLines) {
+                if (Objects.equals(orderLine.getOrders().getId(), order.getId())) {
+                    OrderLinesByUserResponse orderLineResponse = getOrderLinesByUserResponse(orderLine);
+                    orderLinesResponses.add(orderLineResponse);
+                }
+            }
+
+            orderByUserResponse.setOrderLines(orderLinesResponses);
+            orderResponses.add(orderByUserResponse);
+        }
+
+        return orderResponses;
     }
+
 
 
     public void createOrder(OrderCreateRequest orderCreateRequest) {
@@ -62,6 +83,23 @@ public class OrdersService {
         Integer orderId = orderService.createOrder(order);
         List<OrderLine> orderLines = createOrderLines(orderCreateRequest.getOrderLines(), orderId);
         orderLineService.saveOrderLines(orderLines);
+    }
+
+    private static OrderByUserResponse getOrderByUserResponse(Order order) {
+        OrderByUserResponse orderByUserResponse = new OrderByUserResponse();
+        orderByUserResponse.setId(order.getId());
+        orderByUserResponse.setFullName(order.getUser().getFullName());
+        return orderByUserResponse;
+    }
+
+    private static OrderLinesByUserResponse getOrderLinesByUserResponse(OrderLine orderLine) {
+        OrderLinesByUserResponse orderLineResponse = new OrderLinesByUserResponse();
+        orderLineResponse.setOrderId(orderLine.getOrders().getId());
+        orderLineResponse.setProductName(orderLine.getProducts().getName());
+        orderLineResponse.setQuantity(orderLine.getQuantity());
+        orderLineResponse.setPrice(orderLine.getProducts().getUnitPrice());
+        orderLineResponse.setSkuCode(orderLine.getProducts().getSkuCode());
+        return orderLineResponse;
     }
 
     private Order getOrder(LocalDate submissionDate, Integer user) {
