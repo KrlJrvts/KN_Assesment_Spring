@@ -1,6 +1,7 @@
 package com.example.order_managment_system.domain.user.order;
 
 import com.example.order_managment_system.business.orders.dtos.OrderByDateResponse;
+import com.example.order_managment_system.business.orders.dtos.OrderCreateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -15,4 +16,8 @@ public interface OrderMapper {
     OrderByDateResponse toOrderByDateResponse(Order order);
 
     List<OrderByDateResponse> toOrderByDateResponseList(List<Order> orders);
+
+    @Mapping(source = "userId", target = "user.id")
+    @Mapping(source = "submissionDate", target = "submissionDate")
+    Order toOrderBy(OrderCreateRequest orderCreateRequest);
 }
