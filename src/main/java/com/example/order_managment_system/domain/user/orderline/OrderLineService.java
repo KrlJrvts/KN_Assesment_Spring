@@ -24,8 +24,8 @@ public class OrderLineService {
         return orderLineRepository.getOrdersByProduct(productId);
     }
 
-    public List<OrderByUserResponse> getOrdersByUser(Integer userId) {
-        List<OrderLine> orders = orderLineRepository.getOrdersByUser(userId);
+    public List<OrderByUserResponse> getOrderLinesByUser(Integer userId) {
+        List<OrderLine> orders = orderLineRepository.getOrderLinesByUser(userId);
         return orderLineMapper.toOrderByUserResponseList(orders);
     }
 }
