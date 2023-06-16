@@ -24,14 +24,39 @@ public class OrderLineService {
     }
 
     public List<OrderLine> getOrderLinesByUser(Integer userId) {
-        return  orderLineRepository.getOrderLinesByUser(userId);
+        return orderLineRepository.getOrderLinesByUser(userId);
 
     }
 
     public void updateOrderLine(Integer orderId, Integer quantity, Integer orderLineNo) {
-        List<OrderLine> orderLine = orderLineRepository.getOrderBy(orderId);
-        orderLine.get(orderLineNo).setQuantity(quantity);
-        orderLineRepository.save(orderLine.get(orderLineNo));
+        List<OrderLine> orderLines = orderLineRepository.getOrderBy(orderId);
+
+
+        int numberOfOrderLines = orderLines.size();
+
+        if (orderLineNo <= numberOfOrderLines) {
+            OrderLine orderLine = orderLines.get(orderLineNo);
+            orderLine.setQuantity(quantity);
+            orderLineRepository.save(orderLine);
+
+
+        }
+
+        //             throw new RuntimeException("Order line number is not valid");
+
+
+
+
+
+
+//        for (OrderLine orderLine : orderLines) {
+//            if (orderLines.size().equals(orderLineNo) {
+//                orderLine.setQuantity(quantity);
+//                orderLineRepository.save(orderLine);
+//                break;
+//            }
+//        }
     }
+
 }
 

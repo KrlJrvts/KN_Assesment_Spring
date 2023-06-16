@@ -11,7 +11,6 @@ import com.example.order_managment_system.domain.user.orderline.OrderLine;
 import com.example.order_managment_system.domain.user.orderline.OrderLineMapper;
 import com.example.order_managment_system.domain.user.orderline.OrderLineService;
 import jakarta.annotation.Resource;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -128,9 +127,10 @@ public class OrdersService {
     }
 
     public void updateOrder(Integer orderId, OrderLineQuantityEditRequest orderLineQuantityEditRequest) {
-        Integer orderLineNo = orderLineQuantityEditRequest.getOrderLineNo();
         Integer quantity = orderLineQuantityEditRequest.getQuantity();
-        orderLineService.updateOrderLine(orderId, orderLineNo, quantity);
+        Integer orderLineNo = orderLineQuantityEditRequest.getOrderLineNo();
+
+        orderLineService.updateOrderLine(orderId, quantity, orderLineNo);
     }
 }
 
