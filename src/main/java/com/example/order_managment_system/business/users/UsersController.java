@@ -27,6 +27,4 @@ public class UsersController {
 
         usersService.createUser(userCreateRequest);
     }
-
-
 }

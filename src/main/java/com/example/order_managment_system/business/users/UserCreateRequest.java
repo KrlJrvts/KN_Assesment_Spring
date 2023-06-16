@@ -15,6 +15,4 @@ public class UserCreateRequest implements Serializable {
     private String fullName;
     private String email;
     private String telephone;
-
-
 }

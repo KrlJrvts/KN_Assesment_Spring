@@ -66,11 +66,9 @@ public class OrdersService {
                     orderLinesResponses.add(orderLineResponse);
                 }
             }
-
             orderByUserResponse.setOrderLines(orderLinesResponses);
             orderResponses.add(orderByUserResponse);
         }
-
         return orderResponses;
     }
 
@@ -129,7 +127,6 @@ public class OrdersService {
     public void updateOrder(Integer orderId, OrderLineQuantityEditRequest orderLineQuantityEditRequest) {
         Integer quantity = orderLineQuantityEditRequest.getQuantity();
         Integer orderLineNo = orderLineQuantityEditRequest.getOrderLineNo();
-
         orderLineService.updateOrderLine(orderId, quantity, orderLineNo);
     }
 }

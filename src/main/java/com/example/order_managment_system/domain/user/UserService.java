@@ -4,7 +4,6 @@ import com.example.order_managment_system.validation.ValidationService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,13 +17,10 @@ public class UserService {
     }
 
 
-
     public void validateUserBy(String email) {
         boolean userExists = userRepository.userExistBy(email);
         ValidationService.validateUserEmailIsAvailable(userExists);
     }
-
-
 
     public User getUserById(Integer user) {
         return userRepository.findById(user).get();
